@@ -13,6 +13,8 @@
 		A08467EE1A89499C0020785D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A08467ED1A89499C0020785D /* Images.xcassets */; };
 		A08467F11A89499C0020785D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A08467EF1A89499C0020785D /* LaunchScreen.xib */; };
 		A08467FD1A89499C0020785D /* TipOffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08467FC1A89499C0020785D /* TipOffTests.swift */; };
+		A08468071A894F780020785D /* TipCalculatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08468061A894F780020785D /* TipCalculatorModel.swift */; };
+		A08468081A894F780020785D /* TipCalculatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08468061A894F780020785D /* TipCalculatorModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,7 @@
 		A08467F61A89499C0020785D /* TipOffTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TipOffTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A08467FB1A89499C0020785D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A08467FC1A89499C0020785D /* TipOffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipOffTests.swift; sourceTree = "<group>"; };
+		A08468061A894F780020785D /* TipCalculatorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipCalculatorModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,7 @@
 				A08467ED1A89499C0020785D /* Images.xcassets */,
 				A08467EF1A89499C0020785D /* LaunchScreen.xib */,
 				A08467E41A89499C0020785D /* Supporting Files */,
+				A08468061A894F780020785D /* TipCalculatorModel.swift */,
 			);
 			path = TipOff;
 			sourceTree = "<group>";
@@ -161,6 +165,7 @@
 				TargetAttributes = {
 					A08467E01A89499C0020785D = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = Q87NVH5WVG;
 					};
 					A08467F51A89499C0020785D = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -212,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A08468071A894F780020785D /* TipCalculatorModel.swift in Sources */,
 				A08467E91A89499C0020785D /* ViewController.swift in Sources */,
 				A08467E71A89499C0020785D /* AppDelegate.swift in Sources */,
 			);
@@ -222,6 +228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A08467FD1A89499C0020785D /* TipOffTests.swift in Sources */,
+				A08468081A894F780020785D /* TipCalculatorModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +343,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = TipOff/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -346,6 +354,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = TipOff/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

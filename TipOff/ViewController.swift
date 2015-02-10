@@ -15,12 +15,17 @@ class ViewController: UIKit.UIViewController {
     @IBOutlet var taxPercentSlider: UISlider!
     @IBOutlet var taxPercentLabel: UILabel!
     
+    @IBOutlet var taxSwitch: UISwitch!
+    @IBOutlet var tipSwitch: UISwitch!
+    
     @IBOutlet var finalTotalLabel: UILabel!
     @IBOutlet var tipPercentage: UISegmentedControl!
     @IBOutlet var splitStepper: UIStepper!
     @IBOutlet var splitLabel: UILabel!
   
     let tipCalc = TipCalculatorModel(taxPercentage: 0.06, tipPercentage: 0.18, baseTotal: 20.00, splitWay: 1.0)
+    
+    var switchState = Bool()
     
     func refreshUI() {
         
@@ -37,7 +42,10 @@ class ViewController: UIKit.UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        refreshUI()
+        switchState = true
+        taxSwitch.on = true
+        taxPercentSlider.enabled = true
+        taxPercentLabel.enabled = true
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -45,6 +53,39 @@ class ViewController: UIKit.UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func taxSwitch(sender: AnyObject) {
+        
+        if taxSwitch.on {
+            taxPercentSlider.enabled = true
+            taxPercentLabel.enabled = true
+            taxPercentLabel.text = String(format:"%d", taxPercentSlider.value)
+            
+        } else {
+            taxPercentSlider.enabled = false
+            taxPercentSlider.value = 0.0
+            tipCalc.taxPercentage = 0.0
+            taxPercentLabel.enabled = false
+            taxPercentLabel.text = String(format: "%", taxPercentSlider.value)
+            
+        }
+        
+ //   refreshUI()
+    }
+    
+    
+    @IBAction func tipSwitch(sender: AnyObject) {
+        if tipSwitch.on {
+            tipPercentage.enabled = true
+          
+        } else
+        {
+            tipPercentage.enabled = false
+            tipCalc.tipPercentage = 0.0
+            
+        }
+    }
+   
     
     @IBAction func segmentIndexChanged(sender: AnyObject) {
         

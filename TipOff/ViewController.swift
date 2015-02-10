@@ -14,6 +14,8 @@ class ViewController: UIKit.UIViewController {
     @IBOutlet var taxPercentSlider: UISlider!
     @IBOutlet var taxPercentLabel: UILabel!
     
+    @IBOutlet var splitStepper: UIStepper!
+    @IBOutlet var splitLabel: UILabel!
     let tipCalc = TipCalculatorModel(total: 33.25, taxPct: 0.06)
     
     
@@ -35,6 +37,9 @@ class ViewController: UIKit.UIViewController {
     @IBAction func viewIsTapped(sender : AnyObject) {
         baseTextField.resignFirstResponder()
         
+    }
+    @IBAction func stepperActionButton(sender: AnyObject) {
+        splitLabel.text = "\(Int(splitStepper.value))"
     }
     
     func refreshUI() {

@@ -9,6 +9,34 @@
 import UIKit
 
 
+class BaseTextField: UITextView {
+    
+    // prevent paste input and copy
+    override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
+        if action == "cut:" {
+            return false
+        }
+        
+        if action == "copy:" {
+            return false
+        }
+        
+        if action == "select:"{
+            return false
+        }
+        
+        if action == "selectAll:" {
+            return false
+        }
+        
+        if action == "paste:" {
+            return false
+        }
+        
+        return super.canPerformAction(action, withSender: sender)
+}
+}
+
 class ViewController: UIKit.UIViewController {
 
     @IBOutlet var baseTextField: UITextView!
@@ -29,7 +57,6 @@ class ViewController: UIKit.UIViewController {
     
     func refreshUI() {
         
-   //     baseTextField.text = String(format: "%0.2f", tipCalc.baseTotal)
         
         taxPercentSlider.value = Float(tipCalc.taxPercentage) * 100.0
         
@@ -37,8 +64,13 @@ class ViewController: UIKit.UIViewController {
         
         finalTotalLabel.text = ""
         
+        calculateEverything()
+        
+        
+        
         
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +79,16 @@ class ViewController: UIKit.UIViewController {
         taxPercentSlider.enabled = true
         taxPercentLabel.enabled = true
         // Do any additional setup after loading the view, typically from a nib.
+        
+        
     }
-
+    
+   
+    
+ /*   func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if (text.endIndex > 7) {
+    }
+*/
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -70,7 +110,7 @@ class ViewController: UIKit.UIViewController {
             
         }
         
- //   refreshUI()
+    refreshUI()
     }
     
     
@@ -84,6 +124,7 @@ class ViewController: UIKit.UIViewController {
             tipCalc.tipPercentage = 0.0
             
         }
+        refreshUI()
     }
    
     
@@ -104,19 +145,21 @@ class ViewController: UIKit.UIViewController {
         default:
             break
         }
+        refreshUI()
     }
     
-    @IBAction func doCalculate(sender: AnyObject) {
+    func calculateEverything() {
         tipCalc.baseTotal = Double((baseTextField.text as NSString).doubleValue)
         
         let finalTotal = tipCalc.returnFinalTotal()
         
-       // var results =
+        // var results =
         
         finalTotalLabel.text = String(format:"%0.2f", finalTotal[0])
-        
-        
     }
+    
+    
+    
   
     
     @IBAction func taxPercentChanged(sender: AnyObject) {
@@ -125,11 +168,13 @@ class ViewController: UIKit.UIViewController {
     }
     @IBAction func viewIsTapped(sender : AnyObject) {
         baseTextField.resignFirstResponder()
+        refreshUI()
         
     }
     @IBAction func stepperActionButton(sender: AnyObject) {
         splitLabel.text = "\(Int(splitStepper.value))"
         tipCalc.splitWay = splitStepper.value
+        refreshUI()
     }
     
     

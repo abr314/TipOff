@@ -84,6 +84,9 @@
                                     <segment title="20%"/>
                                     <segment title="25%"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentIndexChanged:" destination="P7l-cq-fV2" eventType="valueChanged" id="lhW-Vh-nt1"/>
+                                </connections>
                             </segmentedControl>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="1jR-R4-bNP">
                                 <rect key="frame" x="183" y="193" width="94" height="29"/>
@@ -218,10 +221,12 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="baseTextField" destination="4DI-Aw-GHU" id="5Yd-0L-4kQ"/>
+                        <outlet property="finalTotalLabel" destination="4Ba-Ee-qEJ" id="lAP-US-EDA"/>
                         <outlet property="splitLabel" destination="BQD-JZ-5a2" id="w0U-LO-lFs"/>
                         <outlet property="splitStepper" destination="1jR-R4-bNP" id="GiA-9z-cOf"/>
                         <outlet property="taxPercentLabel" destination="ofT-uO-x46" id="2MF-lH-3bw"/>
                         <outlet property="taxPercentSlider" destination="xbt-bv-CJ5" id="QBv-Zd-AXE"/>
+                        <outlet property="tipPercentage" destination="qwx-i1-eV4" id="uYv-wW-Dai"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jdl-j1-k5p" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -90,20 +90,19 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
 
        
         }
-
-   
-    
-
     
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         switch string {
         case "0","1","2","3","4","5","6","7","8","9":
+            if(countElements(currentString) <= 7){
             currentString += string
             println(currentString)
             formatCurrency(string: currentString)
-            
-            
+            }
+            else {return false}
+       // let newLength = countElements(textField.text!) + countElements(string!)
+           
         default:
             var array = Array(string)
             var currentStringArray = Array(currentString)
@@ -116,6 +115,8 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
                 formatCurrency(string: currentString)
             }
         }
+        
+        
         return false
     }
     
@@ -197,9 +198,19 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
         
         let finalTotal = tipCalc.returnFinalTotal()
         
-        // var results =
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+        formatter.locale = NSLocale(localeIdentifier: "en_US")
+        var results = String(format:"%0.2f", finalTotal[0])
+
         
-        finalTotalLabel.text = String(format:"%0.2f", finalTotal[0])
+        var numberFromField = (NSString(string: results).doubleValue)
+        
+        
+        formatCurrency(string: results)
+        
+        
+        finalTotalLabel.text = formatter.stringFromNumber(numberFromField)
     }
     
     

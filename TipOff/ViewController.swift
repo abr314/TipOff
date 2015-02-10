@@ -19,9 +19,21 @@ class ViewController: UIKit.UIViewController {
     @IBOutlet var tipPercentage: UISegmentedControl!
     @IBOutlet var splitStepper: UIStepper!
     @IBOutlet var splitLabel: UILabel!
-    let tipCalc = TipCalculatorModel(taxPercentage: 0.06, tipPercentage: 0.12, baseTotal: 20.00, splitWay: 1.0)
+  
+    let tipCalc = TipCalculatorModel(taxPercentage: 0.06, tipPercentage: 0.18, baseTotal: 20.00, splitWay: 1.0)
     
-    
+    func refreshUI() {
+        
+   //     baseTextField.text = String(format: "%0.2f", tipCalc.baseTotal)
+        
+        taxPercentSlider.value = Float(tipCalc.taxPercentage) * 100.0
+        
+        taxPercentLabel.text = "\(Int(taxPercentSlider.value))%"
+        
+        finalTotalLabel.text = ""
+        
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,15 +51,15 @@ class ViewController: UIKit.UIViewController {
         switch tipPercentage.selectedSegmentIndex
         {
         case 0:
-            tipCalc.tipPercentage = 12;
+            tipCalc.tipPercentage = 0.12;
         case 1:
-            tipCalc.tipPercentage = 15;
+            tipCalc.tipPercentage = 0.15;
         case 2:
-            tipCalc.tipPercentage = 18;
+            tipCalc.tipPercentage = 0.18;
         case 3:
-            tipCalc.tipPercentage = 20;
+            tipCalc.tipPercentage = 0.20;
         case 4:
-            tipCalc.tipPercentage = 25;
+            tipCalc.tipPercentage = 0.25;
         default:
             break
         }
@@ -55,6 +67,13 @@ class ViewController: UIKit.UIViewController {
     
     @IBAction func doCalculate(sender: AnyObject) {
         tipCalc.baseTotal = Double((baseTextField.text as NSString).doubleValue)
+        
+        let finalTotal = tipCalc.returnFinalTotal()
+        
+       // var results =
+        
+        finalTotalLabel.text = String(format:"%0.2f", finalTotal[0])
+        
         
     }
   
@@ -69,20 +88,10 @@ class ViewController: UIKit.UIViewController {
     }
     @IBAction func stepperActionButton(sender: AnyObject) {
         splitLabel.text = "\(Int(splitStepper.value))"
+        tipCalc.splitWay = splitStepper.value
     }
     
-    func refreshUI() {
-        
-        baseTextField.text = String(format: "%0.2f", tipCalc.baseTotal)
-        
-        taxPercentSlider.value = Float(tipCalc.taxPercentage) * 100.0
-        
-        taxPercentLabel.text = "\(Int(taxPercentSlider.value))%"
-        
-        finalTotalLabel.text = "\(Double(tipCalc.baseTotal))"
-
-        
-    }
+    
     
     
 

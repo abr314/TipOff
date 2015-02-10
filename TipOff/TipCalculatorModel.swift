@@ -23,12 +23,23 @@ class TipCalculatorModel {
         }
     
     
-    func returnFinalTotal() -> Double {
-        var finalTotal = Double()
-        var totalWithoutTip = Double()
-        finalTotal = baseTotal + ((tipPercentage / 100) + (taxPercentage / 100)) / splitWay
+    func returnFinalTotal() -> [Double] {
+        var taxPaid: Double
+        var totalWithTax: Double
+        var totalWithTaxTip: Double
+        var tipPaid: Double
         
-        return finalTotal
+        taxPaid = (baseTotal*taxPercentage)
+        totalWithTax = baseTotal + taxPaid
+        tipPaid = (totalWithTax*tipPercentage)
+        totalWithTaxTip = (totalWithTax + tipPaid) / splitWay
+    
+        let resultsArray:[Double] = [totalWithTaxTip, tipPaid, taxPaid]
+        
+        
+        
+      return resultsArray
+    
     }
    
     

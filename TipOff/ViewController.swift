@@ -88,6 +88,8 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
         taxPercentSlider.enabled = true
         taxPercentLabel.enabled = true
         
+        let currentDevice = UIDevice.currentDevice().name
+        
        self.baseTextField.delegate = self
 
        

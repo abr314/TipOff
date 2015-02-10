@@ -88,38 +88,12 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
         
        self.baseTextField.delegate = self
 
-        // Do any additional setup after loading the view, typically from a nib.
-        
-      /* func format(sender : AnyObject) {
-        
-            if (suppressChangeNotification) {
-                return
-            }
-            
-            suppressChangeNotification = true
-            
-           
-            var display: String! = self.baseTextField.text
-            display = display.stringByReplacingOccurrencesOfString(",", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-            
-        
-            var double: NSNumber = display.toInt()!
-            
-            self.baseTextField.text = NSNumberFormatter.localizedStringFromNumber(double, numberStyle: NSNumberFormatterStyle.DecimalStyle)
-            suppressChangeNotification = false
-        } */
-        
-      //  NSNotificationCenter.defaultCenter().addObserver(self, selector: "format:", name: UITextFieldTextDidChangeNotification, object: self.baseTextField)
-
+       
         }
 
    
     
-   /* func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        if (text.endIndex > 7) {
-    }
 
-    } */
     
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
@@ -129,7 +103,7 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
             println(currentString)
             formatCurrency(string: currentString)
             
-            baseTextFieldValue
+            
         default:
             var array = Array(string)
             var currentStringArray = Array(currentString)
@@ -219,7 +193,7 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
     }
     
     func calculateEverything() {
-        tipCalc.baseTotal = Double((baseTextField.text as NSString).doubleValue)
+        tipCalc.baseTotal = Double((currentString as NSString).doubleValue) / 100.0
         
         let finalTotal = tipCalc.returnFinalTotal()
         

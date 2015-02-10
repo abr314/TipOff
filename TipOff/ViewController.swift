@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class ViewController: UIKit.UIViewController {
 
     @IBOutlet var baseTextField: UITextView!
@@ -30,6 +31,8 @@ class ViewController: UIKit.UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func doCalculate(sender: AnyObject) {
+    }
     @IBAction func taxPercentChanged(sender: AnyObject) {
         tipCalc.taxPct = Double(taxPercentSlider.value) / 100.0
         refreshUI()

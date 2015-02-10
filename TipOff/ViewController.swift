@@ -9,10 +9,12 @@
 import UIKit
 
 
-class BaseTextField: UITextView {
+class BaseTextField: UITextField {
+    
     
     // prevent paste input and copy
     override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
+        
         if action == "cut:" {
             return false
         }
@@ -35,11 +37,33 @@ class BaseTextField: UITextView {
         
         return super.canPerformAction(action, withSender: sender)
 }
+    override func shouldChangeTextInRange(range: UITextRange, replacementText text: String) -> Bool {
+        var characterSet: NSMutableCharacterSet!
+        
+        characterSet.formUnionWithCharacterSet(NSCharacterSet.decimalDigitCharacterSet())
+        
+        var filtered: NSString!
+
+      //  filtered = text.componentsSeparatedByCharactersInSet(characterSet.invertedSet)
+
+        var basicTest: Bool!
+        
+        basicTest = (text == filtered)
+        
+        if (countElements(text as String) > 7) {
+            basicTest = false
+        }
+        
+        return basicTest
+    }
+    
+    
+    
 }
 
 class ViewController: UIKit.UIViewController {
 
-    @IBOutlet var baseTextField: UITextView!
+    @IBOutlet var baseTextField: UITextField!
     @IBOutlet var taxPercentSlider: UISlider!
     @IBOutlet var taxPercentLabel: UILabel!
     
@@ -63,23 +87,21 @@ class ViewController: UIKit.UIViewController {
         taxPercentLabel.text = "\(Int(taxPercentSlider.value))%"
         
         finalTotalLabel.text = ""
+
         
         calculateEverything()
-        
-        
-        
         
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      //  baseTextField.scrollEnabled = false
         switchState = true
         taxSwitch.on = true
         taxPercentSlider.enabled = true
         taxPercentLabel.enabled = true
         // Do any additional setup after loading the view, typically from a nib.
-        
         
     }
     
@@ -117,12 +139,15 @@ class ViewController: UIKit.UIViewController {
     @IBAction func tipSwitch(sender: AnyObject) {
         if tipSwitch.on {
             tipPercentage.enabled = true
+            //tipCalc
+            refreshUI()
           
         } else
         {
+           // tipPercentage.se
+
             tipPercentage.enabled = false
             tipCalc.tipPercentage = 0.0
-            
         }
         refreshUI()
     }

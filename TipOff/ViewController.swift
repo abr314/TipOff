@@ -36,34 +36,15 @@ class BaseTextField: UITextField {
         }
         
         return super.canPerformAction(action, withSender: sender)
-}
-    override func shouldChangeTextInRange(range: UITextRange, replacementText text: String) -> Bool {
-        var characterSet: NSMutableCharacterSet!
-        
-        characterSet.formUnionWithCharacterSet(NSCharacterSet.decimalDigitCharacterSet())
-        
-        var filtered: NSString!
-
-      //  filtered = text.componentsSeparatedByCharactersInSet(characterSet.invertedSet)
-
-        var basicTest: Bool!
-        
-        basicTest = (text == filtered)
-        
-        if (countElements(text as String) > 7) {
-            basicTest = false
-        }
-        
-        return basicTest
     }
-    
-    
+   
     
 }
 
-class ViewController: UIKit.UIViewController {
-
+class ViewController: UIKit.UIViewController, UITextFieldDelegate {
+    var suppressChangeNotification: Bool = false
     @IBOutlet var baseTextField: UITextField!
+    var baseTextFieldValue: Double!
     @IBOutlet var taxPercentSlider: UISlider!
     @IBOutlet var taxPercentLabel: UILabel!
     
@@ -78,6 +59,7 @@ class ViewController: UIKit.UIViewController {
     let tipCalc = TipCalculatorModel(taxPercentage: 0.06, tipPercentage: 0.18, baseTotal: 20.00, splitWay: 1.0)
     
     var switchState = Bool()
+    var currentString = ""
     
     func refreshUI() {
         
@@ -85,6 +67,8 @@ class ViewController: UIKit.UIViewController {
         taxPercentSlider.value = Float(tipCalc.taxPercentage) * 100.0
         
         taxPercentLabel.text = "\(Int(taxPercentSlider.value))%"
+        
+      //  baseTextField.text.t
         
         finalTotalLabel.text = ""
 
@@ -101,20 +85,81 @@ class ViewController: UIKit.UIViewController {
         taxSwitch.on = true
         taxPercentSlider.enabled = true
         taxPercentLabel.enabled = true
+        
+       self.baseTextField.delegate = self
+
         // Do any additional setup after loading the view, typically from a nib.
         
-    }
-    
+      /* func format(sender : AnyObject) {
+        
+            if (suppressChangeNotification) {
+                return
+            }
+            
+            suppressChangeNotification = true
+            
+           
+            var display: String! = self.baseTextField.text
+            display = display.stringByReplacingOccurrencesOfString(",", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            
+        
+            var double: NSNumber = display.toInt()!
+            
+            self.baseTextField.text = NSNumberFormatter.localizedStringFromNumber(double, numberStyle: NSNumberFormatterStyle.DecimalStyle)
+            suppressChangeNotification = false
+        } */
+        
+      //  NSNotificationCenter.defaultCenter().addObserver(self, selector: "format:", name: UITextFieldTextDidChangeNotification, object: self.baseTextField)
+
+        }
+
    
     
- /*   func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+   /* func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if (text.endIndex > 7) {
     }
-*/
+
+    } */
+    
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        switch string {
+        case "0","1","2","3","4","5","6","7","8","9":
+            currentString += string
+            println(currentString)
+            formatCurrency(string: currentString)
+            
+            baseTextFieldValue
+        default:
+            var array = Array(string)
+            var currentStringArray = Array(currentString)
+            if array.count == 0 && currentStringArray.count != 0 {
+                currentStringArray.removeLast()
+                currentString = ""
+                for character in currentStringArray {
+                    currentString += String(character)
+                }
+                formatCurrency(string: currentString)
+            }
+        }
+        return false
+    }
+    
+    func formatCurrency(#string: String) {
+        println("format \(string)")
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+        formatter.locale = NSLocale(localeIdentifier: "en_US")
+        var numberFromField = (NSString(string: currentString).doubleValue)/100
+        baseTextField.text = formatter.stringFromNumber(numberFromField)
+        println(baseTextField.text )
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     @IBAction func taxSwitch(sender: AnyObject) {
         

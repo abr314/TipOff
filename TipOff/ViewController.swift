@@ -51,6 +51,8 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
     @IBOutlet var taxSwitch: UISwitch!
     @IBOutlet var tipSwitch: UISwitch!
     
+    @IBOutlet var totalTaxPaidLabel: UILabel!
+    @IBOutlet var totalTipPaidLabel: UILabel!
     @IBOutlet var finalTotalLabel: UILabel!
     @IBOutlet var tipPercentage: UISegmentedControl!
     @IBOutlet var splitStepper: UIStepper!
@@ -145,7 +147,7 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
             
         } else {
             taxPercentSlider.enabled = false
-            taxPercentSlider.value = 0.0
+            taxPercentSlider.value = 0.0 
             tipCalc.taxPercentage = 0.0
             taxPercentLabel.enabled = false
             taxPercentLabel.text = String(format: "%", taxPercentSlider.value)
@@ -164,8 +166,8 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
           
         } else
         {
-           // tipPercentage.se
-
+           tipPercentage.selectedSegmentIndex = UISegmentedControlNoSegment
+           // tipPercentage.selectedSegmentIndex
             tipPercentage.enabled = false
             tipCalc.tipPercentage = 0.0
         }
@@ -202,15 +204,19 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
         formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
         formatter.locale = NSLocale(localeIdentifier: "en_US")
         var results = String(format:"%0.2f", finalTotal[0])
-
+        var tipPaidResult = String(format:"%0.2f", finalTotal[1])
+        var taxPaidResult = String(format:"%0.2f", finalTotal[2])
         
         var numberFromField = (NSString(string: results).doubleValue)
-        
+        var numberFromTipPaid = (NSString(string: tipPaidResult).doubleValue)
+        var numberFromtTaxPaid = (NSString(string: taxPaidResult).doubleValue)
         
         formatCurrency(string: results)
         
         
         finalTotalLabel.text = formatter.stringFromNumber(numberFromField)
+        totalTipPaidLabel.text = formatter.stringFromNumber(numberFromTipPaid)
+        totalTaxPaidLabel.text = formatter.stringFromNumber(numberFromtTaxPaid)
     }
     
     

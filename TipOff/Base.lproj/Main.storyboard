@@ -22,7 +22,7 @@
             </objects>
             <point key="canvasLocation" x="-394" y="469"/>
         </scene>
-        <!--TipOff-->
+        <!--tab your tip-->
         <scene sceneID="ZYE-SW-ENH">
             <objects>
                 <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="P7l-cq-fV2" customClass="ViewController" customModule="TipOff" customModuleProvider="target" sceneMemberID="viewController">
@@ -435,7 +435,7 @@
                             <outletCollection property="gestureRecognizers" destination="vT7-Ud-hX7" appends="YES" id="hGX-oI-cEp"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="TipOff" id="Jha-Qb-YMJ"/>
+                    <navigationItem key="navigationItem" title="tab your tip" id="Jha-Qb-YMJ"/>
                     <connections>
                         <outlet property="baseTextField" destination="OIG-Di-tBG" id="58T-6X-bzg"/>
                         <outlet property="finalTotalLabel" destination="4Ba-Ee-qEJ" id="lAP-US-EDA"/>

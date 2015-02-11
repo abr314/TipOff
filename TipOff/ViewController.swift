@@ -41,7 +41,7 @@ class BaseTextField: UITextField {
     
 }
 
-class ViewController: UIKit.UIViewController, UITextFieldDelegate {
+class ViewController: UITableViewController, UITextFieldDelegate {
     var suppressChangeNotification: Bool = false
     @IBOutlet var baseTextField: UITextField!
     var baseTextFieldValue: Double!
@@ -73,6 +73,9 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
       //  baseTextField.text.t
         
         finalTotalLabel.text = ""
+        
+        baseTextField.resignFirstResponder()
+
 
         
         calculateEverything()
@@ -91,8 +94,9 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
         let currentDevice = UIDevice.currentDevice().name
         
        self.baseTextField.delegate = self
-
-       
+        var tapGesture = UITapGestureRecognizer(target: self, action: "refreshUI")
+        self.view.addGestureRecognizer(tapGesture)
+        
         }
     
     
@@ -234,6 +238,7 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
         refreshUI()
         
     }
+
     @IBAction func stepperActionButton(sender: AnyObject) {
         splitLabel.text = "\(Int(splitStepper.value))"
         tipCalc.splitWay = splitStepper.value

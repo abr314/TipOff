@@ -152,7 +152,7 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
             taxPercentSlider.value = 0.0 
             tipCalc.taxPercentage = 0.0
             taxPercentLabel.enabled = false
-            taxPercentLabel.text = String(format: "%", taxPercentSlider.value)
+            taxPercentLabel.text = String(format: "%d", taxPercentSlider.value)
             
         }
         

@@ -99,7 +99,7 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         switch string {
         case "0","1","2","3","4","5","6","7","8","9":
-            if(countElements(currentString) <= 7){
+            if(countElements(currentString) <= 5){
             currentString += string
             println(currentString)
             formatCurrency(string: currentString)
@@ -213,7 +213,7 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
         var numberFromTipPaid = (NSString(string: tipPaidResult).doubleValue)
         var numberFromtTaxPaid = (NSString(string: taxPaidResult).doubleValue)
         
-        formatCurrency(string: results)
+     //   formatCurrency(string: results)
         
         
         finalTotalLabel.text = formatter.stringFromNumber(numberFromField)

@@ -41,7 +41,7 @@ class BaseTextField: UITextField {
     
 }
 
-class ViewController: UIKit.UIViewController, UITextFieldDelegate {
+class ViewController: UITableViewController, UITextFieldDelegate {
     var suppressChangeNotification: Bool = false
     @IBOutlet var baseTextField: UITextField!
     var baseTextFieldValue: Double!
@@ -51,6 +51,8 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
     @IBOutlet var taxSwitch: UISwitch!
     @IBOutlet var tipSwitch: UISwitch!
     
+    @IBOutlet var totalTaxPaidLabel: UILabel!
+    @IBOutlet var totalTipPaidLabel: UILabel!
     @IBOutlet var finalTotalLabel: UILabel!
     @IBOutlet var tipPercentage: UISegmentedControl!
     @IBOutlet var splitStepper: UIStepper!
@@ -71,6 +73,9 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
       //  baseTextField.text.t
         
         finalTotalLabel.text = ""
+        
+        baseTextField.resignFirstResponder()
+
 
         
         calculateEverything()
@@ -86,24 +91,26 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
         taxPercentSlider.enabled = true
         taxPercentLabel.enabled = true
         
+        let currentDevice = UIDevice.currentDevice().name
+        
        self.baseTextField.delegate = self
-
-       
+        var tapGesture = UITapGestureRecognizer(target: self, action: "refreshUI")
+        self.view.addGestureRecognizer(tapGesture)
+        
         }
-
-   
-    
-
     
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         switch string {
         case "0","1","2","3","4","5","6","7","8","9":
+            if(countElements(currentString) <= 5){
             currentString += string
             println(currentString)
             formatCurrency(string: currentString)
-            
-            
+            }
+            else {return false}
+       // let newLength = countElements(textField.text!) + countElements(string!)
+           
         default:
             var array = Array(string)
             var currentStringArray = Array(currentString)
@@ -116,6 +123,8 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
                 formatCurrency(string: currentString)
             }
         }
+        
+        
         return false
     }
     
@@ -144,10 +153,10 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
             
         } else {
             taxPercentSlider.enabled = false
-            taxPercentSlider.value = 0.0
+            taxPercentSlider.value = 0.0 
             tipCalc.taxPercentage = 0.0
             taxPercentLabel.enabled = false
-            taxPercentLabel.text = String(format: "%", taxPercentSlider.value)
+            taxPercentLabel.text = String(format: "%d", taxPercentSlider.value)
             
         }
         
@@ -163,8 +172,8 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
           
         } else
         {
-           // tipPercentage.se
-
+           tipPercentage.selectedSegmentIndex = UISegmentedControlNoSegment
+           // tipPercentage.selectedSegmentIndex
             tipPercentage.enabled = false
             tipCalc.tipPercentage = 0.0
         }
@@ -197,9 +206,23 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
         
         let finalTotal = tipCalc.returnFinalTotal()
         
-        // var results =
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+        formatter.locale = NSLocale(localeIdentifier: "en_US")
+        var results = String(format:"%0.2f", finalTotal[0])
+        var tipPaidResult = String(format:"%0.2f", finalTotal[1])
+        var taxPaidResult = String(format:"%0.2f", finalTotal[2])
         
-        finalTotalLabel.text = String(format:"%0.2f", finalTotal[0])
+        var numberFromField = (NSString(string: results).doubleValue)
+        var numberFromTipPaid = (NSString(string: tipPaidResult).doubleValue)
+        var numberFromtTaxPaid = (NSString(string: taxPaidResult).doubleValue)
+        
+     //   formatCurrency(string: results)
+        
+        
+        finalTotalLabel.text = formatter.stringFromNumber(numberFromField)
+        totalTipPaidLabel.text = formatter.stringFromNumber(numberFromTipPaid)
+        totalTaxPaidLabel.text = formatter.stringFromNumber(numberFromtTaxPaid)
     }
     
     
@@ -215,6 +238,7 @@ class ViewController: UIKit.UIViewController, UITextFieldDelegate {
         refreshUI()
         
     }
+
     @IBAction func stepperActionButton(sender: AnyObject) {
         splitLabel.text = "\(Int(splitStepper.value))"
         tipCalc.splitWay = splitStepper.value

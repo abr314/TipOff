@@ -32,9 +32,9 @@ class TipCalculatorModel {
         taxPaid = (baseTotal*taxPercentage)
         totalWithTax = baseTotal + taxPaid
         tipPaid = (totalWithTax*tipPercentage)
-        totalWithTaxTip = (totalWithTax + tipPaid) / splitWay
+        totalWithTaxTip = (totalWithTax + tipPaid)
     
-        let resultsArray:[Double] = [totalWithTaxTip, tipPaid, taxPaid]
+        let resultsArray:[Double] = [totalWithTaxTip / splitWay, tipPaid / splitWay, taxPaid / splitWay]
         
         
         
